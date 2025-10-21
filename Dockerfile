@@ -1,7 +1,10 @@
-FROM eclipse-temurin:21-jre
+FROM maven:3.9-eclipse-temurin-17 AS build
+WORKDIR /src
+COPY . .
+RUN mvn -q -B -DskipTests package
+
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY target/hello-0.0.1-SNAPSHOT.jar /app/app.jar
-ENV SERVER_PORT=8080
-ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=75.0"
+COPY --from=build /src/target/*.jar app.jar
 EXPOSE 8080
-CMD ["java","-jar","/app/app.jar"]
+ENTRYPOINT ["java","-jar","/app/app.jar"]
