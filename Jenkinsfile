@@ -2,14 +2,14 @@ pipeline {
   agent any
 
   environment {
-    DOCKERHUB_REPO = 'mkmoore0544/hello-java-demo' 
+    DOCKERHUB_REPO = 'mkmoore0544/hello' 
     IMAGE_TAG      =  new Date().format('yyyyMMdd-HHmm')
     DOCKERHUB_CRED = 'dockerhub-creds'
 
     EC2_HOST       = 'ec2-13-58-128-170.us-east-2.compute.amazonaws.com'
     EC2_USER       = 'ubuntu'
     EC2_CREDS      = 'ec2-creds'                
-    APP_PORT       = '8081'
+    APP_PORT       = '8080'
   }
   
   stages {
